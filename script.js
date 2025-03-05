@@ -16,7 +16,7 @@ function get_cookie(){
     for(let i = 0; i< cookie.length; i++){
         let cook = cookie[i].split('=')
         if(cook[0] == 'pixel-result'){
-            return cookie[1]
+            return cook[1] || '0'.repeat(450)
         }
         return '0' * 450
     }
@@ -24,9 +24,9 @@ function get_cookie(){
 
 setInterval(function() {
     result=''
-    let temp = document.querySelectorAll('cell')
+    let temp = document.querySelectorAll('.cell')
     for(let i = 0; i<temp.length; i++){
-        result = `${temp[i].dataset.color}`
+        result += temp[i].dataset.color
     }
     document.cookie = `pixel-result=${result};max-age=100000000`
     console.log(document.cookie)
@@ -37,12 +37,12 @@ let saved = get_cookie()
 if(saved != '0'){
     console.log('```')
     for (let i=0; i<450; i++){
-    let  cell = document.createElement('div')
-    let nn_color = +saved[i]
-    cell.classList.add('cell')
-    cell.dataset.color = saved[i]
-    cell.style.backgroundColor = COLOR[nn_color]
-    field.appendChild(cell)
+        let  cell = document.createElement('div')
+        let nn_color = +saved[i]
+        cell.classList.add('cell')
+        cell.dataset.color = saved[i]
+        cell.style.backgroundColor = COLOR[nn_color]
+        field.appendChild(cell)
 }} else{ 
     console.log('qqq')
     for (let i=0; i<450; i++){
@@ -96,4 +96,6 @@ save.addEventListener('click', function(){
         link.click();
     });
 })
+
+
 
